@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>805417880043-da766ssuh4df6aed08g2bc0j62mvaue9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.805417880043-da766ssuh4df6aed08g2bc0j62mvaue9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC0c3rEcLZc-XpoBVclolJRrObFpMZpVP8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>805417880043</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.frankx.coucou</string>
+	<key>PROJECT_ID</key>
+	<string>coucou-3fe9f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>coucou-3fe9f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:805417880043:ios:89df38557bd94b5b</string>
+	<key>DATABASE_URL</key>
+	<string>https://coucou-3fe9f.firebaseio.com</string>
+</dict>
+</plist>
