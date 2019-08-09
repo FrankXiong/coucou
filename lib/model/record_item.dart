@@ -10,4 +10,10 @@ class Item {
     dateTime = jsonMap['createTime'];
     thumbnail = jsonMap['pic'];
   }
+
+  Map toJson() => {
+    'amount': amount,
+    'dateTime': dateTime,
+    'thumbnail': thumbnail
+  };
 }
