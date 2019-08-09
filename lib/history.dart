@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:coucou/model/record_item.dart';
+import 'package:coucou/resource/api.dart';
+import 'package:coucou/util/index.dart';
+import 'package:coucou/detail.dart';
 
 class HistoryPage extends StatefulWidget {
   @override
@@ -10,6 +11,10 @@ class HistoryPage extends StatefulWidget {
 class _HistoryState extends State<HistoryPage> {
   List<Object> _items = [];
   var userId = '5d4996ef7018fabeba9c1182';
+  Map<int, Image> thumbnailMap = {
+    0: Image.asset('assets/img/icon_down.png'),
+    1: Image.asset('assets/img/icon_up.png')
+  };
 
   @override
   void initState() {
@@ -18,69 +23,72 @@ class _HistoryState extends State<HistoryPage> {
   }
 
   void _getData() async {
-    Response res;
-    Dio dio = new Dio();
-    res = await dio.get("http://127.0.0.1:3000/api/record/list?userId=$userId");
+    var api = new Api();
+    var res = await api.getRecordList();
     var data = res.data['data'];
     setState(() {
       _items = data;
+      print(data);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(_items);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('我的记录')
-      ),
-      body: Container(
-        child: ListView.builder(
-          padding: const EdgeInsets.all(8.0),
-          itemExtent: 106.0,
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              child: CustomListItem(
-                dateTime: '2019-8-7',
-                amount: 20,
-                thumbnail: Image.network(
-                  'https://p0.meituan.net/scarlett/4613a4d17ef91e5977e73f941276c1d021671.png',
+        appBar: AppBar(title: Text('我的记录')),
+        body: Container(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(8.0),
+            itemExtent: 106.0,
+            itemCount: _items.length,
+            itemBuilder: (context, index) {
+              Map item = _items[index];
+              String dateTime = Utils.parseTimestamp(item['createTime']);
+              int status = item['status'];
+              Image thumbnail = thumbnailMap[status];
+              return Container(
+                margin: EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
                 ),
-              )
-            );
-          },
-        ),
-      )
-    );
+                child: CustomListItem(
+                  thumbnail: thumbnail,
+                  dateTime: dateTime,
+                  amount: item['amount'],
+                  image: item['pic'],
+                  status: item['status'],
+                )
+              );
+            },
+          ),
+        ));
   }
 }
-
 
 class CustomListItem extends StatelessWidget {
   const CustomListItem({
     this.thumbnail,
     this.dateTime,
     this.amount,
+    this.image,
+    this.status,
   });
 
   final Widget thumbnail;
   final String dateTime;
-  final double amount;
+  final String image;
+  final int status;
+  final int amount;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(
-            flex: 2,
+            flex: 1,
             child: thumbnail,
           ),
           Expanded(
@@ -90,6 +98,22 @@ class CustomListItem extends StatelessWidget {
               amount: amount,
             ),
           ),
+          Expanded(
+            flex: 1,
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              color: Colors.grey,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return DetailPage(image, amount, status);
+                    }
+                  )
+                );
+              },
+            )
+          )
         ],
       ),
     );
@@ -104,20 +128,21 @@ class _RecordDescription extends StatelessWidget {
   }) : super(key: key);
 
   final String dateTime;
-  final double amount;
+  final amount;
 
   @override
   Widget build(BuildContext context) {
+    var amountStr = amount == 0 ? '无趣的一天' : '￥$amount';
     return Padding(
-      padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            '￥$amount',
+            '$amountStr',
             style: const TextStyle(fontSize: 20.0),
           ),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
           Text(
             dateTime,
             style: const TextStyle(
@@ -125,10 +150,8 @@ class _RecordDescription extends StatelessWidget {
               fontSize: 12.0,
             ),
           ),
-          
         ],
       ),
     );
   }
 }
-
