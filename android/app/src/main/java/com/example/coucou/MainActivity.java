@@ -1,4 +1,4 @@
-package com.frankx.coucou;
+package com.frankxxr.coucou;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

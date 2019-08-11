@@ -5,7 +5,7 @@ class Utils {
     int y = date.year;
     int m = date.month;
     int d = date.day;
-    String weekDay = weeks[date.weekday];
+    String weekDay = weeks[date.weekday - 1];
     if (withWeekday) {
       return '$y-$m-$d $weekDay';
     }

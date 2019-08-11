@@ -7,7 +7,8 @@ class Api {
 
   Api() {
     dio = new Dio();
-    dio.options.baseUrl = 'http://127.0.0.1:3000/api';
+    // dio.options.baseUrl = 'http://127.0.0.1:3000/api';
+    dio.options.baseUrl = 'http://coucou.skrskrskrskr.com/api';
     dio.options.connectTimeout = 5000;
   }
 
