@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DetailPage extends StatelessWidget {
   final image;
@@ -39,7 +40,11 @@ class DetailPage extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.white),
       child: Column(
         children: <Widget>[
-          Image.network(imgUrl),
+          CachedNetworkImage(
+            imageUrl: imgUrl,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
           Padding(
             padding: EdgeInsets.all(10),
             child: Text(

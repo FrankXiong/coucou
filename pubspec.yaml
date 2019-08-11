@@ -13,6 +13,7 @@ dependencies:
   url_launcher: ^3.0.3
   image_picker: ^0.6.1
   dio: 2.1.13
+  cached_network_image: 1.1.1
 
 dev_dependencies:
   flutter_test:

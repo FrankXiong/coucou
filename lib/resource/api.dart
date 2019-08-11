@@ -31,6 +31,7 @@ class Api {
       "photo": new UploadFileInfo(image, image.uri.toFilePath()),
     });
     var res = await dio.post('/image/upload', data: form);
+    print('uploadImage: $res');
     return res.data;
   }
 }

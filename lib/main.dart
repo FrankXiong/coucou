@@ -201,7 +201,10 @@ class RecordDialogState extends State<RecordDialog> {
 
   /* 打开相册 */
   void _openGallery() async {
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    File image = await ImagePicker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1000,
+    );
     if (image == null) return;
     var res = await new Api().uploadImage(image);
     if (res['success']) {
@@ -281,8 +284,8 @@ class PreviewImage extends StatelessWidget {
     var content;
     if (show) {
       content = Container(
-        width: 200,
-        height: 200,
+        width: 250,
+        height: 250,
         child: Image.network(imgUrl),
       );
     } else {
